@@ -40,9 +40,17 @@ extension InformationViewController: UITableViewDataSource {
         let contact = contacts[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: "informationID", for: indexPath)
         var content = cell.defaultContentConfiguration()
-        content.text = contact.fullName
+        if indexPath.row == 0 {
+            content.text = contact.email
+            content.image = UIImage(systemName: "envelope")
+        } else {
+            content.text = String(contact.number)
+            content.image = UIImage(systemName: "phone")
+        }
 
         cell.contentConfiguration = content
+
+
 
         return cell
     }
@@ -52,4 +60,6 @@ extension InformationViewController: UITableViewDataSource {
 
         return contact.fullName
     }
+
+
 }

@@ -17,7 +17,6 @@ class ContactListViewController: UIViewController {
         super.viewDidLoad()
 
         tableView.dataSource = self
-        tableView.delegate = self
 
         getContacts()
     }
@@ -32,32 +31,26 @@ class ContactListViewController: UIViewController {
     }
 
     private func getContacts() {
-        contacts = Array(repeating: Contact(
-            name: UUID().uuidString,
-            surname: UUID().uuidString,
-            number: Int.random(in: 0...100),
-            email: UUID().uuidString
-        ), count: 10)
-//        contacts = [
-//            Contact(
-//                name: "Bob",
-//                surname: "Lee",
-//                number: 384658365,
-//                email: "vbdfbvjdbvavb@lfv"
-//            ),
-//            Contact(
-//                name: "Robert",
-//                surname: "See",
-//                number: 38475,
-//                email: "ldfgvladgv@lfv"
-//            ),
-//            Contact(
-//                name: "Chak",
-//                surname: "Gee",
-//                number: 384658365,
-//                email: "vbdfbvjdbvavb@lfv"
-//            )
-//        ]
+        contacts = [
+            Contact(
+                name: "Bob",
+                surname: "Lee",
+                number: 384658365,
+                email: "vbdfbvjdbvavb@lfv"
+            ),
+            Contact(
+                name: "Robert",
+                surname: "See",
+                number: 38475,
+                email: "ldfgvladgv@lfv"
+            ),
+            Contact(
+                name: "Chak",
+                surname: "Gee",
+                number: 384658365,
+                email: "vbdfbvjdbvavb@lfv"
+            )
+        ]
     }
 }
 
@@ -76,16 +69,5 @@ extension ContactListViewController: UITableViewDataSource {
         cell.contentConfiguration = content
 
         return cell
-    }
-}
-
-extension ContactListViewController: UITableViewDelegate {
-
-    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
-        .none
-    }
-
-    func tableView(_ tableView: UITableView, shouldIndentWhileEditingRowAt indexPath: IndexPath) -> Bool {
-        false
     }
 }

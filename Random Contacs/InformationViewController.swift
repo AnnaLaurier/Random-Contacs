@@ -17,8 +17,10 @@ class InformationViewController: UIViewController {
         super.viewDidLoad()
 
         tableView.dataSource = self
+        tableView.delegate = self
 
         getContacts()
+        navigationController?.navigationBar.backgroundColor = .white
     }
 
     private func getContacts() {
@@ -40,17 +42,11 @@ extension InformationViewController: UITableViewDataSource {
         let contact = contacts[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: "informationID", for: indexPath)
         var content = cell.defaultContentConfiguration()
-        if indexPath.row == 0 {
-            content.text = contact.email
-            content.image = UIImage(systemName: "envelope")
-        } else {
-            content.text = String(contact.number)
-            content.image = UIImage(systemName: "phone")
-        }
+        
+        content.text = indexPath.row == 0 ? contact.email : String(contact.number)
+        content.image = UIImage(systemName: indexPath.row == 0 ? "envelope" : "phone")
 
         cell.contentConfiguration = content
-
-
 
         return cell
     }
@@ -60,6 +56,11 @@ extension InformationViewController: UITableViewDataSource {
 
         return contact.fullName
     }
+}
 
+extension InformationViewController: UITableViewDelegate {
 
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        30
+    }
 }

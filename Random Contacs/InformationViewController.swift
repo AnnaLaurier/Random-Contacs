@@ -1,5 +1,5 @@
 //
-//  ContactListViewController.swift
+//  InformationViewController.swift
 //  Random Contacs
 //
 //  Created by Anna Lavrova on 01.03.2024.
@@ -7,8 +7,8 @@
 
 import UIKit
 
-class ContactListViewController: UIViewController {
-    
+class InformationViewController: UIViewController {
+
     @IBOutlet weak var tableView: UITableView!
 
     private var contacts: [Contact] = []
@@ -21,34 +21,35 @@ class ContactListViewController: UIViewController {
         getContacts()
     }
 
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        super.prepare(for: segue, sender: sender)
-
-        let viewController = segue.destination as? ContactDetailsViewController
-        if let index = tableView.indexPathForSelectedRow?.row {
-            viewController?.contact = contacts[index]
-        }
-    }
-
     private func getContacts() {
         contacts = Contact.getContacts()
     }
 }
 
-extension ContactListViewController: UITableViewDataSource {
+extension InformationViewController: UITableViewDataSource {
+
+    func numberOfSections(in tableView: UITableView) -> Int {
+        contacts.count
+    }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        contacts.count
+        2
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let contact = contacts[indexPath.row]
-        let cell = tableView.dequeueReusableCell(withIdentifier: "contactID", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "informationID", for: indexPath)
         var content = cell.defaultContentConfiguration()
         content.text = contact.fullName
 
         cell.contentConfiguration = content
 
         return cell
+    }
+
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        let contact = contacts[section]
+
+        return contact.fullName
     }
 }
